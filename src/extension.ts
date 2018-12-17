@@ -2,9 +2,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { writeFile, readFile } from 'fs';
+import * as fs from 'fs';
 import { tmpdir } from 'os';
-import { exec } from 'child_process';
+import { md2hatena } from 'md2hatena';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -43,17 +43,11 @@ export function activate(context: vscode.ExtensionContext) {
 
         let text = doc.getText(selection); 
 
-        // ファイル書き出し -> 変換 -> 読み出しで変更
-        writeFile(filePath + ".md", text, (err) => {
-            exec(command, (error,stdout,stderr) => {
-                readFile(filePath + ".hatena", (err, data) => {
-                    if(!editor) return;
-                    editor.edit(edit => {
-                        edit.replace(selection, "" + data);
-                    });
-                });
+        md2hatena(text).then((hatena) => {
+        editor.edit(edit => {
+            edit.replace(selection, "" + hatena);
             });
-        });
+        })
     });
 
     context.subscriptions.push(disposable);
