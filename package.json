@@ -1,6 +1,6 @@
 {
-    "name": "md2hatena",
-    "displayName": "md2hatena",
+    "name": "vscode-md2hatena",
+    "displayName": "vscode-md2hatena",
     "description": "markdown to hatena language",
     "publisher": "cohalz",
     "repository": {
@@ -39,5 +39,8 @@
         "tslint": "^5.8.0",
         "@types/node": "^8.10.25",
         "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "md2hatena": "^0.3.1"
     }
 }
