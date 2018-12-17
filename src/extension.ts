@@ -2,8 +2,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import * as fs from 'fs';
-import { tmpdir } from 'os';
 import { md2hatena } from 'md2hatena';
 
 // this method is called when your extension is activated
@@ -20,12 +18,6 @@ export function activate(context: vscode.ExtensionContext) {
     let disposable = vscode.commands.registerCommand('extension.md2hatena', async () => {
         // The code you place here will be executed every time your command is executed
 
-        let basePath = tmpdir()+"/";
-        let fileName = "tmp";
-
-        let filePath = basePath+fileName;
-
-        let command = "md2hatena " + filePath + ".md" + " > " + filePath + ".hatena";
         let editor = vscode.window.activeTextEditor;
 
         if(!editor) return;
@@ -43,7 +35,8 @@ export function activate(context: vscode.ExtensionContext) {
 
         let text = doc.getText(selection); 
 
-        md2hatena(text).then((hatena) => {
+        md2hatena(text).then((hatena:string) => {
+        if(!editor) return;
         editor.edit(edit => {
             edit.replace(selection, "" + hatena);
             });
