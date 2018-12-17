@@ -1,6 +1,6 @@
 {
-    "name": "md2hatena",
-    "displayName": "md2hatena",
+    "name": "vscode-md2hatena",
+    "displayName": "vscode-md2hatena",
     "description": "markdown to hatena language",
     "publisher": "cohalz",
     "repository": {
